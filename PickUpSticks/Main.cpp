@@ -2,9 +2,12 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "PEE");
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "PEEck up sticks", sf::Style::Fullscreen);
+
     sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color(177, 188, 85, 100));
+    shape.setFillColor(sf::Color(190, 201, 91));
+
+
 
     while (window.isOpen())
     {
