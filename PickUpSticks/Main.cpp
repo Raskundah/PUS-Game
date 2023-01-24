@@ -16,6 +16,7 @@ int main()
 
     sf::Texture playerTexture;
     sf::Texture grassTexture;
+    sf::Texture stickTexture;
 
     if (!playerTexture.loadFromFile("Assets/Player_Stand.png"))
     {
@@ -31,16 +32,26 @@ int main()
     else
         std::cout << "Texture loaded successfully" << "\n";
 
+    if (!stickTexture.loadFromFile("Assets/Stick.png"))
+    {
+        std::cout << "Texture load failed for Assets\Stick.ppg" << "\n";
+    }
+    else
+        std::cout << "Texture loaded successfully" << "\n";
+
 #pragma endregion
 
 #pragma region initSprites
     sf::Sprite playerSprite;
     sf::Sprite grassSprite;
+    sf::Sprite stickSprite;
+
     std::vector<sf::Sprite> grassVector;
-    
+    std::vector<sf::Sprite> stickVector;
 
     playerSprite.setTexture(playerTexture);
     grassSprite.setTexture(grassTexture);
+    stickSprite.setTexture(stickTexture);
 
     int numGrassToAdd = 20;
    
@@ -49,13 +60,14 @@ int main()
         grassVector.push_back(grassSprite);
     }
 
-
-
 #pragma endregion
 
 #pragma region Position
 
-    playerSprite.setPosition(sf::Vector2f(000.0f, 100.0f));
+    playerSprite.setPosition(sf::Vector2f(200.0f, 200.0f));
+    playerSprite.setRotation(90);
+
+
 
     int randx;
     int randy;
@@ -64,12 +76,28 @@ int main()
 
     for (int i = 0; i < grassVector.size(); ++i)
     {
+        int min = 5;
+        int max = 255;
+        int range = max - min;
+
         randx = rand() % (window.getSize().x - grassTexture.getSize().x);
         randy = rand() % (window.getSize().y - grassTexture.getSize().y);
 
         grassVector[i].setPosition(randx, randy);
+
+        int randRed = rand() % range;
+        int randGreen = rand() % range;
+        int randBlue = rand() % range;
+        int scaleX = rand() % 2;
+        int scaleY = rand() % 2;
+
+        grassVector[i].setColor(sf::Color(randRed, randGreen, randBlue));
+        grassVector[i].setScale(sf::Vector2f(scaleX, scaleY));
     }
 
+    stickSprite.setPosition(sf::Vector2f(rand() % (window.getSize().x - stickTexture.getSize().x), rand() % (window.getSize().y - stickTexture.getSize().y)));
+    stickSprite.setRotation(rand() % 359);
+    stickVector.push_back(stickSprite);
 
 
 
@@ -113,6 +141,11 @@ int main()
         }
 
         window.draw(playerSprite);
+
+        for (int i = 0; i < stickVector.size(); ++i)
+        {
+            window.draw(stickVector[i]);
+        }
 
 
         window.display();
