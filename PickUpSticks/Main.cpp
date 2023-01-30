@@ -65,7 +65,7 @@ int main()
 #pragma region Position
 
     playerSprite.setPosition(sf::Vector2f(200.0f, 200.0f));
-    playerSprite.setRotation(90);
+    playerSprite.setRotation(0);
 
 
 
@@ -127,6 +127,46 @@ int main()
         }
 
 #pragma endregion
+#pragma region Update
+
+        sf::Vector2f direction(0, 0);
+
+        direction.x = 0;
+        direction.y = 0;
+
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            direction.x = -1;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            direction.x = 1;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+            direction.y = -1;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            direction.y = 1;
+        }
+
+
+
+
+        sf::Vector2f newPosition =  playerSprite.getPosition() + direction*0.5f;
+
+        playerSprite.setPosition(newPosition);
+
+
+
+#pragma endregion
+
+
 
 #pragma region Display
 
